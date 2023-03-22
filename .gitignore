@@ -1,0 +1,20 @@
+# Ignore build artifacts
+*.exe
+*.jar
+*.dll
+
+# Ignore temporary files
+*.log
+*.tmp
+
+# Ignore configuration files
+.env
+.config
+.settings
+
+# Ignore Node.js modules
+node_modules/
+
+# Ignore IDE files
+.idea/
+.vscode/
