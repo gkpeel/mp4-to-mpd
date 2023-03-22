@@ -1,0 +1,11 @@
+{
+  "name": "mp4-to-mpd",
+  "version": "1.0.0",
+  "description": "web app that converts mp4 video into mpd manifest",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Geoff Peel",
+  "license": "ISC"
+}
