@@ -19,9 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Set up the route to display the file upload form
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
+app.get('/', (req, res) => res.send('Hello world!'));
 
 // Set up the route to handle the file upload and conversion
 app.post('/convert', upload.single('file'), (req, res) => {
@@ -52,5 +50,5 @@ const port = process.env.PORT || 3000;
 
 // Start the server
 app.listen(port, () => {
-  console.log('Server started on port 3000');
+  console.log(`Server started on port ${port}`);
 });
