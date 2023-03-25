@@ -1,10 +1,17 @@
-const express = require('express');
-const multer = require('multer');
-const ffmpeg = require('ffmpeg');
-const path = require('path');
-const fs = require('fs');
+const express = require('express')
+const cors = require('cors')
+const multer = require('multer')
+const ffmpeg = require('ffmpeg')
+const path = require('path')
+const fs = require('fs')
 
 const app = express();
+
+// cors
+app.use(cors({ origin: true, credentials: true }));
+
+// Init Middleware
+app.use(express.json({ extended: false }));
 
 // Set up the storage for the uploaded files
 const storage = multer.diskStorage({
@@ -16,7 +23,8 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage });
+// Set up multer to handle file uploads
+const upload = multer({ storage: storage });
 
 // Set up the route to display the file upload form
 app.get('/', (req, res) => res.send('Hello world!'));
@@ -26,20 +34,17 @@ app.post('/convert', upload.single('file'), (req, res) => {
   // Get the uploaded file
   const filePath = req.file.path;
 
+  console.log(filePath);
+
   // Convert the file to MOV format using FFmpeg
   const outputFilePath = path.join('uploads', 'output.mov');
   try {
-    const command = new ffmpeg(filePath);
-    command.output(outputFilePath)
-      .on('end', function() {
-        // Return the converted file to the user as a download
-        res.download(outputFilePath, (err) => {
-          // Delete the uploaded and converted files from the server
-          fs.unlinkSync(filePath);
-          fs.unlinkSync(outputFilePath);
-        });
-      })
-      .run();
+    var process = new ffmpeg(filePath);
+    process.then(function (video) {
+      console.log('The video is ready to be processed');
+    }, function (err) {
+      console.log('Error: ' + err);
+    });
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
