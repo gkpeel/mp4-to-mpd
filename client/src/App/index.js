@@ -2,6 +2,7 @@ import React from 'react';
 import Navigation from '../Navigation';
 import Title from "../Title";
 import ConvertForm from '../ConvertForm';
+import VideoPlayer from '../VideoPlayer';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           </ul>
         </div>
         <ConvertForm/>
+        <VideoPlayer />
       </div>
     </>
   );
