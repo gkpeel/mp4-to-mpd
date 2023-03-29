@@ -1,5 +1,8 @@
-import React, { useState } from 'react'
+import React, { createElement, useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import axios from 'axios'
+import Title from '../Title';
+import UploadOption from '../UploadOption';
 
 const ConvertForm = () => {
   const [inputFilesArray, setInputFilesArray] = useState(null);
@@ -30,14 +33,23 @@ const ConvertForm = () => {
       });
   }
 
+  useEffect(() => {
+    const container = document.querySelector("#upload-container")
+    createPortal(<p>Hello</p>, container)
+  }, [])
+
   return (
-  <form onSubmit={handleSubmit}>
-    <div>
-      <label htmlFor="file-upload" className='block mb-2'>Choose a file to upload:</label>
-      <input id="file-upload" type="file" onChange={handleFileInputChange}/>
-    </div>
-    <input type="submit" value="Submit" />
-  </form>
+    <>
+      <Title tag="h3" className="text-lg">Add a file to upload</Title>
+      <form onSubmit={handleSubmit}>
+        <div id="upload-container" className='my-4'></div>
+        <input
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          type="submit"
+          value="Submit" 
+        />
+      </form>
+    </>
   )
 }
 
